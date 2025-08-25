@@ -9,16 +9,19 @@ screen = pygame.display.set_mode((screen_w, screen_h))
 # image load
 play_button = pygame.image.load("assets/play.png").convert_alpha()
 play_button = pygame.transform.scale(play_button, (90, 80))  # Scale the image to desired size
+play_button_rect = play_button.get_rect(x=100, y=100 )
 
 running = True
 while running:   
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+    mos_pos = pygame.mouse.get_pos()
     
     screen.fill((250, 238, 238))  # Fill the screen with black
+    screen.blit(play_button, play_button_rect)  
     
-    screen.blit(play_button, (100, 100))
+    
     
     pygame.display.flip()   # Update the full display Surface to the screen
 pygame.quit()
