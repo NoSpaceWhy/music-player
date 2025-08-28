@@ -21,10 +21,15 @@ pause_button_rect = pause_button.get_rect(x=200, y=100 )
 # music load
 music = "music/swimming by flawedMangoes.mp3"
 loaded_music = pygame.mixer.Sound(music)
+music = music.removesuffix('.mp3')
+music = music.split("/", 1)[1]
 
-# * font load
+# * text load
 music_name = font.render(music, True, (0, 0, 0))
 music_name_rect = music_name.get_rect( x=0, y=400)
+
+text = font.render("Right now listening to", True, (0, 0, 0))
+text_rect = text.get_rect(y=350, x=0)
 
 running = True
 while running:   
@@ -46,6 +51,7 @@ while running:
     screen.blit(pause_button, pause_button_rect)
     
     screen.blit(music_name, music_name_rect)
+    screen.blit(text, text_rect)
     
     # print(mos_pos)
     pygame.display.flip()   # Update the full display Surface to the screen
