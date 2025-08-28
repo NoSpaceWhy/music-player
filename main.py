@@ -1,5 +1,5 @@
 import pygame
-
+from tkinter.filedialog import askopenfilename
 pygame.init()
 pygame.mixer.init()
 pygame.mixer.set_num_channels(1)
@@ -18,7 +18,12 @@ play_button_rect = play_button.get_rect(x=100, y=100 )
 pause_button = pygame.image.load("assets/pause.png").convert_alpha()
 pause_button = pygame.transform.scale(pause_button, (90, 80))  # Scale
 pause_button_rect = pause_button.get_rect(x=200, y=100 )
-# music load
+
+choose_button = pygame.image.load("assets/folder.png").convert_alpha()
+choose_button = pygame.transform.scale(choose_button, (90, 80))  # Scale
+choose_button_rect = choose_button.get_rect(x=300, y=100 )
+
+# * music load
 music = "music/swimming by flawedMangoes.mp3"
 loaded_music = pygame.mixer.Sound(music)
 music = music.removesuffix('.mp3')
@@ -52,7 +57,19 @@ while running:
     
     screen.blit(music_name, music_name_rect)
     screen.blit(text, text_rect)
+    screen.blit(choose_button, choose_button_rect)
     
-    # print(mos_pos)
+    if choose_button_rect.collidepoint(mos_pos):
+        if pygame.mouse.get_pressed()[0]:  # Left mouse button is pressed
+            music = askopenfilename(title="select music file")
+            loaded_music = pygame.mixer.Sound(music).convert()
+            
+            music = music.removesuffix('.mp3')
+            music = music.split("/", 1)[1]
+            print(music)
+            music_name = font.render(music, True, (0, 0, 0))
+            music_name_rect = music_name.get_rect( x=0, y=400)
+            
+            
     pygame.display.flip()   # Update the full display Surface to the screen
 pygame.quit()
